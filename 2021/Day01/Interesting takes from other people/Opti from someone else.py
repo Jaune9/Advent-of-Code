@@ -1,4 +1,4 @@
-with open("input.txt", "r") as f:
+with open("../input.txt", "r") as f:
     data = [int(line) for line in f.readlines()]
 
 
