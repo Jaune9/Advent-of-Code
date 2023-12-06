@@ -1,11 +1,3 @@
-day01_part1_demo_arg = """
-1abc2
-pqr3stu8vwx
-a1b2c3d4e5f
-treb7uchet
-"""
-
-day01_real_arg = """
 1six7396484
 1ninehgqtjprgnpkchxdkctzk
 sevenmpsmstdfivebtnjljnlnpjrkhhsninefour9
@@ -1006,20 +998,3 @@ one9xmhvzklmzffive1kcsixmnsbm2
 nine8foursnczninednds
 9sevensixrsrgmclkvthkgtxqtwovtlxfrdnllxvsghslh
 seven443six8three31
-"""
-
-day01_part2_demo_arg = """
-two1nine
-eightwothree
-abcone2threexyz
-xtwone3four
-4nineeightseven2
-zoneight234
-7pqrstsixteen
-"""
-
-day02_demo_arg = {
-    'max_red': 12,
-    'max_green': 13,
-    'max_blue': 14
-}

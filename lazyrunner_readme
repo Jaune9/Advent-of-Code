@@ -6,5 +6,6 @@ Being able to launch all the demo or all the real deal was a goal as well
 
 The idea is as follow :
 - arguments.py has all of the inputs for the days
-- Day.py turns the inputs and other elements into a Day object
-- main.py runs on Day object list to pretty print them
+- Day.py is just a day class
+- init turns the arguments and other elements into Day objects
+- main.py runs on Day objects list or elements to pretty print them

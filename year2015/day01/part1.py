@@ -1,10 +1,4 @@
-from pathlib import Path
-
-if __name__ == "__main__":
-
-    # parsing
-    a_string = Path("input.txt").read_text()
-
+def count_parenthesis(a_string):
     opened = 0
     closed = 0
     for character in a_string:
@@ -13,4 +7,4 @@ if __name__ == "__main__":
         if character == ')':
             closed += 1
 
-    print("Part 1 answer : ", opened - closed)
+    return opened - closed
