@@ -6,6 +6,7 @@ from day01 import *
 
 @dataclass
 class DayPart:
+    year: int
     day: int
     part: int
     type: str
@@ -24,6 +25,7 @@ class DayPart:
 
 
 Day1Part1Demo = DayPart(
+    year=2023,
     day=1,
     part=1,
     type="Demo",
@@ -33,6 +35,7 @@ Day1Part1Demo = DayPart(
 )
 
 Day1Part1Real = DayPart(
+    year=2023,
     day=1,
     part=1,
     type="Real",
@@ -42,6 +45,7 @@ Day1Part1Real = DayPart(
 )
 
 Day1Part2Demo = DayPart(
+    year=2023,
     day=1,
     part=2,
     type="Demo",
@@ -51,6 +55,7 @@ Day1Part2Demo = DayPart(
 )
 
 Day1Part2Real = DayPart(
+    year=2023,
     day=1,
     part=2,
     type="Real",

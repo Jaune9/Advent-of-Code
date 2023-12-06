@@ -1,10 +1,10 @@
 from typing import List
 
-from const import *
+from Day import *
 
 
 def pretty_print(days_list: List[DayPart]):
-    print(days_list[0].type)
+    print(f"{days_list[0].year} - {days_list[0].type}")
     print("                 Expected - - - - Produced")
     for day in days_list:
         print(
@@ -20,5 +20,5 @@ def print_only_one(day: int, part: int, days_list: List[DayPart]):
 if __name__ == "__main__":
     print_only_one(1, 2, days_demo)
     print_only_one(1, 2, days_real)
-    # pretty_print(days_demo)
-    # pretty_print(days_real)
+    pretty_print(days_demo)
+    pretty_print(days_real)
