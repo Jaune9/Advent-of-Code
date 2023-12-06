@@ -1,0 +1,13 @@
+I did a little code runner/printer in 2023
+You can find it in LazyRunner or 2023 folder
+
+The idea was to be able to print the run for a day/part/mode (demo or real) easily
+Being able to launch all the demo or all the real deal was a goal as well
+
+I tried something like Tyler (Typer ?) to print it the fancy way in the terminal
+but eventually figured I was using the Pycharm runner more anyway so I gave it up
+
+The idea is as follow :
+- arguments.py has all of the inputs for the days
+- Day.py turns the inputs and other elements into a Day object
+- main.py runs on Day object list to pretty print them
