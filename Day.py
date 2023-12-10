@@ -1,3 +1,4 @@
+# Dataclass is really cool: you don't have to make a __init__ to have a Constructor method now
 from dataclasses import dataclass
 
 
@@ -12,7 +13,11 @@ class DayPart:
     expected: any
     result: any = None
 
-    def get_result(self):
+    def get_result(self) -> int:
+        """
+        Calcul the result of a day based on its algo and argument
+        :return:
+        """
         if not self.result:
             self.result = self.algo(self.arg)
         return self.result

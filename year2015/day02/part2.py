@@ -1,18 +1,14 @@
-from pathlib import Path
 import re
 
 
-if __name__ == "__main__":
-
-    # parsing
-    a_string = Path("input.txt").read_text()
+def day2part2(a_string: str):
     a_list = re.findall('\d+', a_string)
     dimension = 3
     composite_list = [a_list[x:x+dimension] for x in range(0, len(a_list), dimension)]
+    total_wrapped_area = 0
+    total_ribbon_length = 0
 
-    # treatment
     for rank, sub_list in enumerate(composite_list):
-        # get area covered by wrapped paper :
         l = int(sub_list[0])
         w = int(sub_list[1])
         h = int(sub_list[2])
@@ -32,5 +28,4 @@ if __name__ == "__main__":
         total_wrapped_area += wrapped_area + smallest_section
         total_ribbon_length += ribbon_length
 
-    print("Part 1 answer : ", total_wrapped_area)
-    print("Part 2 answer : ", total_ribbon_length)
+    return total_ribbon_length

@@ -2,7 +2,7 @@ import turtle
 from pathlib import Path
 from time import sleep
 
-directions = Path("../input.txt").read_text()
+directions = Path("../../../arguments/2015/day03_real").read_text()
 t1 = turtle.Turtle()
 t2 = turtle.Turtle()
 t1.color("red")

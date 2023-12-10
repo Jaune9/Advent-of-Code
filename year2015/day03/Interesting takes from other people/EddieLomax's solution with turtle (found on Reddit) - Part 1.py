@@ -1,8 +1,7 @@
 import turtle
 from pathlib import Path
-from time import sleep
 
-directions = Path("../input.txt").read_text()
+directions = Path("../../../arguments/2015/day03_real").read_text()
 turtle.tracer(0, 0)
 turtle.color('red')  # Let's be festive
 

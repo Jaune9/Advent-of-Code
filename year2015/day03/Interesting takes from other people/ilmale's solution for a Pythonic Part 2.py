@@ -11,7 +11,7 @@ def update_pos(c, p):
     return return_value[c]
 
 
-content = Path('../input.txt').read_text()
+content = Path('../../../arguments/2015/day03_real').read_text()
 pos = [(0, 0), (0, 0)]  # one is Santa, the other Robo-Santa
 visited_houses = {(0, 0): True}
 for i in range(len(content)):
