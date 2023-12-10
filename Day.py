@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class DayPart:
+class Day:
     year: int
     day: int
     part: int

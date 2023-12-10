@@ -3,8 +3,10 @@ from pathlib import Path
 from Day import *
 from year2023 import day01
 
-Day1Part1Demo = DayPart(
-    year=2023,
+year = 2023
+
+Day1Part1Demo = Day(
+    year=year,
     day=1,
     part=1,
     type="Demo",
@@ -13,8 +15,8 @@ Day1Part1Demo = DayPart(
     expected=142,
 )
 
-Day1Part1Real = DayPart(
-    year=2023,
+Day1Part1Real = Day(
+    year=year,
     day=1,
     part=1,
     type="Real",
@@ -23,8 +25,8 @@ Day1Part1Real = DayPart(
     expected=54951,
 )
 
-Day1Part2Demo = DayPart(
-    year=2023,
+Day1Part2Demo = Day(
+    year=year,
     day=1,
     part=2,
     type="Demo",
@@ -33,8 +35,8 @@ Day1Part2Demo = DayPart(
     expected=281,
 )
 
-Day1Part2Real = DayPart(
-    year=2023,
+Day1Part2Real = Day(
+    year=year,
     day=1,
     part=2,
     type="Real",
