@@ -78,14 +78,13 @@ def pretty_print(days_list: List[Day]) -> None:
             and BACKGROUND_GRAY_DARK + White + BOLD
             or BackgroundLightGray + Black + BOLD
         )
+        result = day.algo(day.arg)
         day_result = color_string(
-            f"{day.expected:>8} - - - - {day.algo(day.arg):<8}", day_result_color
+            f"{day.expected:>8} - - - - {result:<8}", day_result_color
         )
 
         # Compare expected/actual values to see if you keep the same result, for refactoring purposed
-        message, message_color = (
-            day.expected == day.algo(day.arg) and ("V", GREEN) or ("X", RED)
-        )
+        message, message_color = day.expected == result and ("V", GREEN) or ("X", RED)
         day_validation = color_string(message, message_color)
 
         # Printing the sum of the previous part, together
