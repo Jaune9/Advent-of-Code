@@ -1,0 +1,6 @@
+Rather than using regex, you can just split ! 
+
+https://github.com/jonathanpaulson/AdventOfCode/blob/master/2023/2.py
+for event in line.split(';'):
+    for balls in event.split(','):
+      n,color = balls.split()
