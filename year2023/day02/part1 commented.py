@@ -6,10 +6,9 @@ so you can say "about the thing that match the pattern, give it to me in this va
 """
 import re
 
-max_red = 12
-max_green = 13
-max_blue = 14
-# you should CAPITALIZE your constant, not like I did here
+MAX_RED = 12
+MAX_GREEN = 13
+MAX_BLUE = 14
 
 
 def get_sum_of_game_pocket_ids(game_sets: str) -> int:
@@ -32,21 +31,37 @@ def get_sum_of_game_pocket_ids(game_sets: str) -> int:
         \d means a digit
         * means "as many as you want"
         () forms a group
-        We can get what is in a group later, and we want the game number, so we put only the digit part in a group
+        We can get what is in a group later
+        Here, we want the game number, so we put only the digit part in a group
         """
         game_number = re.search("^\w* (\d*)", line).groups()
+        """
+        We don't need the "Game XX :" part of the line anymore, so we cut it
+        Because we don't know how long the number can be, we cut at ":" and advance by 2 to be where we want
+        """
         line = line[line.index(":") + 2 :]
+        """
+        ? means "can be there or not"
+        Here, we want the number, the color, and maybe even know when there is a ; just in case
+        So we make 3 groups just for that
+        """
         current_groups = re.findall("(\d*) (\w*)(,?;? ?)", line)
         red, green, blue = 0, 0, 0
         for group in current_groups:
-            if group[1] == "red":
-                red = int(group[0]) if int(group[0]) > red else red
-            if group[1] == "green":
-                green = int(group[0]) if int(group[0]) > green else green
-            if group[1] == "blue":
-                blue = int(group[0]) if int(group[0]) > blue else blue
-        red_ok = red <= max_red
-        green_ok = green <= max_green
-        blue_ok = blue <= max_blue
+            val = int(group[0])
+            color = group[1]
+            if color == "red":
+                red = val if val > red else red
+            if color == "green":
+                green = val if val > green else green
+            if color == "blue":
+                blue = val if val > blue else blue
+        red_ok = red <= MAX_RED
+        green_ok = green <= MAX_GREEN
+        blue_ok = blue <= MAX_BLUE
+        """
+        here we check if everything is true between red_ok and so on. 
+        if it is, we add the value. If not, we add 0 (handier than doing nothing here)
+        """
         sum_of_ids += red_ok and green_ok and blue_ok and int(game_number[0]) or 0
     return sum_of_ids

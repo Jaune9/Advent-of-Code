@@ -65,14 +65,36 @@ Day2Part1Real = Day(
     expected=2528,
 )
 
+Day2Part2Demo = Day(
+    year=year,
+    day=2,
+    part=2,
+    type="Demo",
+    algo=day02.part2.get_total_power,
+    arg=Path("arguments/2023/day02_part1_demo").read_text(),
+    expected=2286,
+)
+
+Day2Part2Real = Day(
+    year=year,
+    day=2,
+    part=2,
+    type="Real",
+    algo=day02.part2.get_total_power,
+    arg=Path("arguments/2023/day02_part2_real").read_text(),
+    expected=67363,
+)
+
 demo_2023 = [
     Day1Part1Demo,
     Day1Part2Demo,
     Day2Part1Demo,
+    Day2Part2Demo,
 ]
 
 real_2023 = [
     Day1Part1Real,
     Day1Part2Real,
     Day2Part1Real,
+    Day2Part2Real,
 ]
