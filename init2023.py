@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from Day import *
-from year2023 import day01, day02
+from year2023 import day01, day02, day03
 
 year = 2023
 
@@ -61,7 +61,7 @@ Day2Part1Real = Day(
     part=1,
     type="Real",
     algo=day02.part1.get_sum_of_game_pocket_ids,
-    arg=Path("arguments/2023/day02_part1_real").read_text(),
+    arg=Path("arguments/2023/day02_real").read_text(),
     expected=2528,
 )
 
@@ -81,8 +81,28 @@ Day2Part2Real = Day(
     part=2,
     type="Real",
     algo=day02.part2.get_total_power,
-    arg=Path("arguments/2023/day02_part2_real").read_text(),
+    arg=Path("arguments/2023/day02_real").read_text(),
     expected=67363,
+)
+
+Day3Part1Demo = Day(
+    year=year,
+    day=3,
+    part=1,
+    type="Demo",
+    algo=day03.part1.day3part1,
+    arg=Path("arguments/2023/day3_part1_demo").read_text(),
+    expected=-1,
+)
+
+Day3Part1Real = Day(
+    year=year,
+    day=3,
+    part=1,
+    type="Real",
+    algo=day03.part1.day3part1,
+    arg=Path("arguments/2023/day3_part1_real").read_text(),
+    expected=-1,
 )
 
 demo_2023 = [
@@ -90,6 +110,7 @@ demo_2023 = [
     Day1Part2Demo,
     Day2Part1Demo,
     Day2Part2Demo,
+    Day3Part1Demo,
 ]
 
 real_2023 = [
@@ -97,4 +118,5 @@ real_2023 = [
     Day1Part2Real,
     Day2Part1Real,
     Day2Part2Real,
+    # Day3Part1Real,
 ]
