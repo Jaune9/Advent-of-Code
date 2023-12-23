@@ -1,78 +1,200 @@
-from dataclasses import dataclass
+"""
+We are looking for numbers adjacent to symbols 
+So we are looking for numbers, right ?
+But what if there are thousands and thousands of numbers and no/few symbol ?
+You waste time and resources
+So I suggest we look for symbol who have adjacent numbers instead
+
+The idea is as follows:
+- Get symbols positions
+- Get numbers adjacent to symbols positions
+- Somehow check they are not the same number I guess ?
+- Get left and right neighbours of numbers who also are numbers
+- Profit ??! 
+"""
 
 
-def get_adjacent_or_diagonal_cells(x, y, row_count, line_length):
-    near_elements = []
-    is_first_row = x == 0
-    is_last_row = x == row_count - 1
-    is_first_in_line = y == 0
-    is_last_in_line = y == line_length - 1
+class Cell:
+    x: int
+    y: int
+    content: str
 
-    # tenter un match ?
+    def __init__(self, x, y, char):
+        self.x = x
+        self.y = y
+        self.content = char
 
+    def __repr__(self):
+        return f"({self.x},{self.y}):{self.content}"
+
+    def isnumeric(self):
+        return self.content.isnumeric()
+
+
+def get_neighbours(matrix, symbol: Cell):
+    """
+    We split the neighbours into top, middle and bottom ones for later
+    Be careful about append(..., matrix[][]) value, it is matrix[y][x], not [x][y]
+    """
+    row_count = len(matrix)
+    line_length = len(matrix[0])
+    x, y = symbol.x, symbol.y
+    top_row_neighbours = []
+    middle_row_neighbours = []
+    bottom_row_neighbours = []
+    is_first_row = y == 0
+    is_last_row = y == line_length - 1
+    is_first_in_line = x == 0
+    is_last_in_line = x == row_count - 1
+
+    # Todo replace by a match case
+
+    # Top row
     if not is_first_row and not is_first_in_line:
         # above and before
-        near_elements.append((x - 1, y - 1))
+        top_row_neighbours.append(Cell(x - 1, y - 1, matrix[y - 1][x - 1]))
     if not is_first_row:
         # above
-        near_elements.append((x - 1, y))
+        top_row_neighbours.append(Cell(x, y - 1, matrix[y - 1][x]))
     if not is_first_row and not is_last_in_line:
         # above and after
-        near_elements.append((x - 1, y + 1))
+        top_row_neighbours.append(Cell(x + 1, y - 1, matrix[y - 1][x + 1]))
+
+    # Middle row
     if not is_first_in_line:
         # before
-        near_elements.append((x, y - 1))
+        middle_row_neighbours.append(Cell(x - 1, y, matrix[y][x - 1]))
     # self exist here
     if not is_last_in_line:
         # after
-        near_elements.append((x, y + 1))
+        middle_row_neighbours.append(Cell(x + 1, y, matrix[y][x + 1]))
+
+    # Bottom row
     if not is_last_row and not is_first_in_line:
         # below and before
-        near_elements.append((x + 1, y - 1))
+        bottom_row_neighbours.append(Cell(x - 1, y + 1, matrix[y + 1][x - 1]))
     if not is_last_row:
         # below
-        near_elements.append((x + 1, y))
+        bottom_row_neighbours.append(Cell(x, y + 1, matrix[y + 1][x]))
     if not is_last_row and not is_last_in_line:
         # below and after
-        near_elements.append((x + 1, y + 1))
-    return near_elements
+        bottom_row_neighbours.append(Cell(x + 1, y + 1, matrix[y + 1][x + 1]))
+    return [top_row_neighbours, middle_row_neighbours, bottom_row_neighbours]
 
 
-# fixme probably faulty
-# def get_adjacent_content(matrix, cell_x, cell_y):
-#     neighbours = get_adjacent_or_diagonal_cells(
-#         cell_x, cell_y, len(matrix[0]), len(matrix)
-#     )
-#     neighbours_content = []
-#     for neighbour in neighbours:
-#         neighbours_content.append(matrix[cell_x + neighbour[0]][cell_y + neighbour[1]])
-#     return neighbours_content
+def get_symbols(matrix):
+    positions = []
+    for y, line in enumerate(matrix):
+        for x, char in enumerate(line):
+            if char in ["*", "+", "#", "$"]:
+                positions.append(Cell(x, y, char))
+    return positions
 
 
-@dataclass
-class SchematicCell:
-    up_left: str
-    up: str
-    up_right: str
-    left: str
-    content: str
-    right: str
-    down_left: str
-    down: str
-    down_right: str
-    adjacent: list[str]
+def recursive_get_left_number(neighbour, matrix, temp_x) -> int:
+    """
+    Ok, a lot happens here
+    This is a recursive function, a function ment to call itself
+    It can be more efficient than a while or for loop in some case
+    Google it for a simpler example, then come back to this one later
+
+    The idea : if we go from a number to a neighbour, it can go left or right
+    If we take the very first example, 467
+    Starting from 7, you go left to get the 6, then the 4
+    But you can't do 7 + 6 + 4, you have to do 7 + 6 * 10 + 4 * 100
+    If you started from 4, you would need to go right to the 6, then the 7
+    Same, you can't do 4 + 6 + 7, you have to do 4 * 100 + 6 * 10 + 7
+    Iterator also changes with the direction, as we want to go left or right, x has +1 or -1l
+    """
+    coefficient_current, coefficient_next = 1, 10
+    iterator = -1
+
+    if matrix[neighbour.y][temp_x].isnumeric():
+        if 0 <= temp_x <= len(matrix[0]):
+            return coefficient_current * int(
+                matrix[neighbour.y][temp_x]
+            ) + coefficient_next * recursive_get_left_number(
+                neighbour, matrix, temp_x + iterator
+            )
+    return 0
+
+
+def recursive_get_right_number(neighbour, matrix, temp_x) -> int:
+    """
+    Ok, a lot happens here
+    This is a recursive function, a function ment to call itself
+    It can be more efficient than a while or for loop in some case
+    Google it for a simpler example, then come back to this one later
+
+    The idea : if we go from a number to a neighbour, it can go left or right
+    If we take the very first example, 467
+    Starting from 7, you go left to get the 6, then the 4
+    But you can't do 7 + 6 + 4, you have to do 7 + 6 * 10 + 4 * 100
+    If you started from 4, you would need to go right to the 6, then the 7
+    Same, you can't do 4 + 6 + 7, you have to do 4 * 100 + 6 * 10 + 7
+    Iterator also changes with the direction, as we want to go left or right, x has +1 or -1l
+    """
+    coefficient_current, coefficient_next = 10, 1
+    iterator = 1
+
+    if matrix[neighbour.y][temp_x].isnumeric():
+        if 0 <= temp_x <= len(matrix[0]):
+            return coefficient_current * int(
+                matrix[neighbour.y][temp_x]
+            ) + coefficient_next * recursive_get_left_number(
+                neighbour, matrix, temp_x + iterator
+            )
+    return int(matrix[neighbour.y][temp_x])
+
+
+def get_number(neighbours, matrix):
+    for neighbour in neighbours:
+        print(neighbour)
+        left_value = 0
+        if neighbour[0].isnumeric():
+            temp_x = neighbour[0].x
+            left_value = recursive_get_left_number(neighbour[0], matrix, temp_x)
+        mid_value = int(neighbour[1].content) if neighbour[1].isnumeric() else 0
+        right_value = 0
+        if neighbour[-1].isnumeric():
+            temp_x = neighbour[-1].x
+            right_value = recursive_get_right_number(neighbour[-1], matrix, temp_x)
+
+        def concat_int(v1, v2):
+            """
+            Add number like when you don't know math:
+            1 + 2 == 12
+            """
+            return int(str(v1) + str(v2))
+
+        value = 0
+        match left_value, mid_value, right_value:
+            case left_value, 0, 0:
+                return left_value
+            case left_value, mid_value, 0:
+                return concat_int(left_value, mid_value)
+            case left_value, 0, right_value:
+                return left_value + right_value
+            case left_value, mid_value, right_value:
+                return concat_int(left_value, concat_int(mid_value, right_value))
+            case 0, mid_value, 0:
+                return mid_value
+            case 0, mid_value, right_value:
+                return concat_int(mid_value, right_value)
+            case 0, 0, right_value:
+                return right_value
+
+        return value
 
 
 def day3part1(schematics: str):
     # parsing
     matrix = schematics.split("\n")
-    print("matrix")
-    print(matrix)
-    print("lines")
 
     # demo for tool functions
-    # print(get_adjacent_or_diagonal_cells(1, 1, 3, 3))
-    # print(get_adjacent_or_diagonal_cells(0, 0, 3, 3))
-    # print(get_adjacent_content(matrix, 0, 0))
-
-    return 0
+    symbols = get_symbols(matrix)
+    result = 0
+    for symbol in symbols:
+        neighbours = get_neighbours(matrix, symbol)
+        result += get_number(neighbours, matrix)
+    return result

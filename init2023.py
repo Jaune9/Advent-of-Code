@@ -92,7 +92,7 @@ Day3Part1Demo = Day(
     type="Demo",
     algo=day03.part1.day3part1,
     arg=Path("arguments/2023/day3_part1_demo").read_text(),
-    expected=-1,
+    expected=4361,
 )
 
 Day3Part1Real = Day(
