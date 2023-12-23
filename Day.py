@@ -12,6 +12,7 @@ class Day:
     arg: str
     expected: any
     result: any = None
+    comment: str = ""
 
     def get_result(self) -> int:
         """

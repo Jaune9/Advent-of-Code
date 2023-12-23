@@ -103,6 +103,7 @@ Day3Part1Real = Day(
     algo=day03.part1.day3part1,
     arg=Path("arguments/2023/day3_part1_real").read_text(),
     expected=-1,
+    comment="Lower than 27030732",
 )
 
 demo_2023 = [
@@ -118,5 +119,5 @@ real_2023 = [
     Day1Part2Real,
     Day2Part1Real,
     Day2Part2Real,
-    # Day3Part1Real,
+    Day3Part1Real,
 ]

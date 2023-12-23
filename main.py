@@ -86,6 +86,8 @@ def pretty_print(days_list: List[Day]) -> None:
         # Compare expected/actual values to see if you keep the same result, for refactoring purposed
         message, message_color = day.expected == result and ("V", GREEN) or ("X", RED)
         day_validation = color_string(message, message_color)
+        if day.comment:
+            day_validation += f"  --  {day.comment}"
 
         # Printing the sum of the previous part, together
         print(color_string(day_print, main_color) + day_result + " | " + day_validation)

@@ -31,6 +31,18 @@ class Cell:
         return self.content.isnumeric()
 
 
+def concat_int(v1: int, v2: int or None):
+    """
+    Add number like when you couldn't math:
+    1 + 2 == 12
+
+    If only v1 is valid, returns only v1 as recursive_get_right_number can return None
+    """
+    if v2 is None:
+        return int(v1)
+    return int(str(v1) + str(v2))
+
+
 def get_neighbours(matrix, symbol: Cell):
     """
     We split the neighbours into top, middle and bottom ones for later
@@ -47,7 +59,7 @@ def get_neighbours(matrix, symbol: Cell):
     is_first_in_line = x == 0
     is_last_in_line = x == row_count - 1
 
-    # Todo replace by a match case
+    # Todo replace by a match case, see example of match later in this file
 
     # Top row
     if not is_first_row and not is_first_in_line:
@@ -110,7 +122,7 @@ def recursive_get_left_number(neighbour, matrix, temp_x) -> int:
     iterator = -1
 
     if matrix[neighbour.y][temp_x].isnumeric():
-        if 0 <= temp_x <= len(matrix[0]):
+        if 0 <= temp_x:
             return coefficient_current * int(
                 matrix[neighbour.y][temp_x]
             ) + coefficient_next * recursive_get_left_number(
@@ -119,7 +131,7 @@ def recursive_get_left_number(neighbour, matrix, temp_x) -> int:
     return 0
 
 
-def recursive_get_right_number(neighbour, matrix, temp_x) -> int:
+def recursive_get_right_number(neighbour, matrix, temp_x) -> int or None:
     """
     Ok, a lot happens here
     This is a recursive function, a function ment to call itself
@@ -134,22 +146,25 @@ def recursive_get_right_number(neighbour, matrix, temp_x) -> int:
     Same, you can't do 4 + 6 + 7, you have to do 4 * 100 + 6 * 10 + 7
     Iterator also changes with the direction, as we want to go left or right, x has +1 or -1l
     """
-    coefficient_current, coefficient_next = 10, 1
-    iterator = 1
-
+    print(matrix[neighbour.y], temp_x)
+    print(
+        "put a breakpoint here with temp_x == len(matrix[0]) and you'll see the 7 4 5 nicely that ends on x==140"
+        "index out of range de mékouy",
+        "faut handle le 0 en fait T___T",
+    )
+    print(matrix[neighbour.y][temp_x])
     if matrix[neighbour.y][temp_x].isnumeric():
-        if 0 <= temp_x <= len(matrix[0]):
-            return coefficient_current * int(
-                matrix[neighbour.y][temp_x]
-            ) + coefficient_next * recursive_get_left_number(
-                neighbour, matrix, temp_x + iterator
+        if temp_x < len(matrix[neighbour.y]):
+            return concat_int(
+                matrix[neighbour.y][temp_x],
+                recursive_get_right_number(neighbour, matrix, temp_x + 1),
             )
-    return int(matrix[neighbour.y][temp_x])
+    return
 
 
 def get_number(neighbours, matrix):
+    result = 0
     for neighbour in neighbours:
-        print(neighbour)
         left_value = 0
         if neighbour[0].isnumeric():
             temp_x = neighbour[0].x
@@ -160,31 +175,25 @@ def get_number(neighbours, matrix):
             temp_x = neighbour[-1].x
             right_value = recursive_get_right_number(neighbour[-1], matrix, temp_x)
 
-        def concat_int(v1, v2):
-            """
-            Add number like when you don't know math:
-            1 + 2 == 12
-            """
-            return int(str(v1) + str(v2))
-
         value = 0
         match left_value, mid_value, right_value:
             case left_value, 0, 0:
-                return left_value
+                value = left_value
             case left_value, mid_value, 0:
-                return concat_int(left_value, mid_value)
+                value = concat_int(left_value, mid_value)
             case left_value, 0, right_value:
-                return left_value + right_value
+                value = left_value + right_value
             case left_value, mid_value, right_value:
-                return concat_int(left_value, concat_int(mid_value, right_value))
+                value = concat_int(left_value, concat_int(mid_value, right_value))
             case 0, mid_value, 0:
-                return mid_value
+                value = mid_value
             case 0, mid_value, right_value:
-                return concat_int(mid_value, right_value)
+                value = concat_int(mid_value, right_value)
             case 0, 0, right_value:
-                return right_value
-
-        return value
+                value = right_value
+        print(left_value, mid_value, right_value, value)
+        result += value
+    return result
 
 
 def day3part1(schematics: str):
