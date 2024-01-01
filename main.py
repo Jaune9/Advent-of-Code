@@ -1,11 +1,13 @@
 # inspect allows a fun thing, see the function "get_calling_function_name"
 import inspect
+
 # Typing is optional in Python, but recommended, as it makes following your logic easier (even to yourself)
 # It also makes the IDE better at assisting you
 from typing import List
 
 # This is the class Day, that will allow us to create Day object
 from Day import Day
+
 # This is where the different parts of a day (part number, algo, input) are turned into a Day object
 from init2015 import real_2015
 from init2016 import real_2016
