@@ -37,15 +37,16 @@ def day2part3(score):
             # alors score est à gauche
             return "left", score, grid, iterator
         iterator += 1
-
-
+    
 def meh(direction, score, grid, iterator):
     print(direction, score, grid, iterator)
     if direction == "none":
         return score
+    layers_count = iterator - 2
+    layer_width = 2 * iterator + 1
     if score == grid:
-        # todo
-        ...
+        print("idunnoshit", score, iterator)
+        return layers_count + layer_width
 
 """
 Big idea:
@@ -66,6 +67,9 @@ if __name__ == "__main__":
     for test in tests:
         direction, score, grid, iterator = day2part3(int(test[0]))
         print(meh(direction, score, grid, iterator))
-    for i in range(0, 25):
+    for i in range(1, 25):
         print(day2part3(i))
+        direction, score, grid, iterator = day2part3(i)
+        print(meh(direction, score, grid, iterator))
+
     print(day2part3(int(val)))
