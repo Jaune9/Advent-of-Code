@@ -1,9 +1,8 @@
-tests = [
-    (1, 0),
-    (12, 3),
-    (23, 2),
-    (1024, 31)
-]
+"""
+/!\ Unfinished /!\
+"""
+
+tests = [(1, 0), (12, 3), (23, 2), (1024, 31)]
 
 val = """277678"""
 
@@ -37,7 +36,8 @@ def day2part3(score):
             # alors score est à gauche
             return "left", score, grid, iterator
         iterator += 1
-    
+
+
 def meh(direction, score, grid, iterator):
     print(direction, score, grid, iterator)
     if direction == "none":
@@ -47,6 +47,7 @@ def meh(direction, score, grid, iterator):
     if score == grid:
         print("idunnoshit", score, iterator)
         return layers_count + layer_width
+
 
 """
 Big idea:

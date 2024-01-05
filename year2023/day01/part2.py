@@ -8,8 +8,8 @@ def day01_part2_func(code: str) -> int:
     oneight is a valid line to have in the exercise and should give 18.
     If you replace one by 1, you get 1ight, so eight won't be replaced by 8 since the 'e' is missing
     Replace one by one1one prevents us from erasing either the beginning or the end of the chain
-    From there, we can re-use part1 func as it is.
-    Most "days" are done in a way that encourages you to re-use part1 in part2
+    From there, we can re-use part1.py func as it is.
+    Most "days" are done in a way that encourages you to re-use part1.py in part2.py
     """
     replaced_code = (
         code.replace("one", "one1one")

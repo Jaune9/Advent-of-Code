@@ -6,7 +6,7 @@ X123X
 XXXXX
 
 If our number is 123, we have to check all the X cells to see what they have.
-I intended on doing the opposing (finding numbers from symbols) and failed, see "part1 first try yada yada.py"
+I intended on doing the opposing (finding numbers from symbols) and failed, see "part1.py first try yada yada.py"
 """
 import re
 
