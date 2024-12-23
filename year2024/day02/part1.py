@@ -1,23 +1,14 @@
-def split_list_into_two_columns(lines: list[str]):
-    left_column = []
-    right_column = []
-    print(lines)
-    for line in lines:
-        left, right = line.split()
-        left_column.append(int(left))
-        right_column.append(int(right))
-    return left_column, right_column
+def are_level_ordered(report: list[int]):
+    ...
 
-def get_sum_of_smallest_distances(code: str):
-    lines = code.split("\n")
-    left_column, right_column = split_list_into_two_columns(lines)
+def are_adjacent_levels_just_different_enough():
+    ...
 
-    ordered_left_column = sorted(left_column)
-    ordered_right_column = sorted(right_column)
+def get_safe_report_count(code: str):
+    report_list = code.split("\n")
 
-    differences = []
-    for left, right in zip(ordered_left_column, ordered_right_column):
-        differences.append(abs(left - right))
+    for report in report_list:
+        int_levels = [int(level) for level in report.split()]
+        print(int_levels)
 
-    sum_of_differences = sum(differences)
-    return sum_of_differences
+    return "nope"
