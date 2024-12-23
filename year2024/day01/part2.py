@@ -1,4 +1,4 @@
-from part1 import split_list_into_two_columns
+from .part1 import split_list_into_two_columns
 
 def get_similarity_score(code: str):
     lines = code.split("\n")

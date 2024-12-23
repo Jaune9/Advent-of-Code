@@ -32,7 +32,7 @@ Day1Part2Real = Day(
     type="Real",
     algo=day01.part2.get_similarity_score,
     arg=Path("arguments/2024/day01_part1_real").read_text(),
-    expected=0,
+    expected=20719933,
 )
 
 demo_2024 = [
