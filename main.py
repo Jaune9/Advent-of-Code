@@ -12,6 +12,7 @@ from Day import Day
 from init2015 import real_2015
 from init2016 import real_2016
 from init2023 import real_2023, demo_2023
+from init2024 import real_2024, demo_2024
 
 # Just exist so black does not delete the imports above when I use them
 existing_list = [real_2015, real_2016, real_2023, demo_2023]
@@ -106,11 +107,18 @@ if __name__ == "__main__":
     Start of the main process.
     See examples belows.
     """
-    print_only_one(1, 2, demo_2023)
-    print_only_one(1, 2, real_2023)
-    pretty_print(demo_2023)
-    pretty_print(real_2023)
 
-    # Pick one or more
-    # pretty_print(real_2015)
-    # pretty_print(real_2016)
+    # for ele in existing_list:
+    #     pretty_print(ele)
+
+    # print_only_one(1, 2, demo_2023)
+    # print_only_one(1, 2, real_2023)
+    # pretty_print(demo_2023)
+    # pretty_print(real_2023)
+    #
+    # # Pick one or more
+    # # pretty_print(real_2015)
+    # # pretty_print(real_2016)
+
+    pretty_print(demo_2024)
+    pretty_print(real_2024)
